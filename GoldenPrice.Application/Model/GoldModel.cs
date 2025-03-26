@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace GoldenPrice.Provider;
+namespace GoldenPrice.Application.Model;
 
 public class GoldModel
 {
@@ -11,4 +11,6 @@ public class GoldModel
     [JsonProperty("price")] public decimal Price { get; set; }
 
     [JsonProperty("change_percent")] public decimal ChangePercent { get; set; }
+
+    [JsonProperty("unit")] public string Unit { get; set; }
 }

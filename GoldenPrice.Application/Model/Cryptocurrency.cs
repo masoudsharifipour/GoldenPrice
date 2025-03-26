@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace GoldenPrice.Provider.brsapi.ir.Model;
+namespace GoldenPrice.Application.Model;
 
 public class CryptocurrencyModel
 {

@@ -1,4 +1,4 @@
-using GoldenPrice.Provider.brsapi.ir.Model;
+using GoldenPrice.Application.Model;
 using Newtonsoft.Json;
 
 namespace GoldenPrice.Provider;

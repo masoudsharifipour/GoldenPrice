@@ -1,6 +1,6 @@
 using GoldenPrice.Application.GetQuery;
+using GoldenPrice.Application.Model;
 using GoldenPrice.Provider;
-using GoldenPrice.Provider.brsapi.ir.Model;
 using MediatR;
 
 namespace GoldenPrice;

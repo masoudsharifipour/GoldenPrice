@@ -1,22 +1,30 @@
+using GoldenPrice.Application.Model;
 using GoldenPrice.Provider;
-using GoldenPrice.Provider.brsapi.ir.Model;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
-namespace GoldenPrice.Application;
+namespace Infrastructure.Provider.brsapi.ir;
 
 public class BRSMarketDataProviderService : IMarketDataProvider
 {
     private readonly HttpClient _httpClient;
+    private readonly IConfiguration _configuration;
 
-    public BRSMarketDataProviderService(HttpClient httpClient)
+    public BRSMarketDataProviderService(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
-        _httpClient.BaseAddress = new Uri("https://brsapi.ir/");
+        _configuration = configuration;
+        var brsSettings = _configuration.GetSection("BrsApiSettings");
+        _httpClient.BaseAddress = new Uri(brsSettings["BaseUrl"] ?? string.Empty);
     }
 
     public async Task<MarketModel?> GetAllDataAsync()
     {
-        var response = await _httpClient.GetAsync("/FreeTsetmcBourseApi/Api_Free_Gold_Currency_v2.json");
+        var brsSettings = _configuration.GetSection("BrsApiSettings");
+        var apiPath = brsSettings["ApiPath"];
+        var apiKey = brsSettings["ApiKey"];
+        
+        var response = await _httpClient.GetAsync($"{apiPath}?key={apiKey}");
 
         if (!response.IsSuccessStatusCode)
         {
@@ -28,6 +36,7 @@ public class BRSMarketDataProviderService : IMarketDataProvider
 
         var responseString = await response.Content.ReadAsStringAsync();
         var result = JsonConvert.DeserializeObject<MarketModel>(responseString);
+
         return result;
     }
 

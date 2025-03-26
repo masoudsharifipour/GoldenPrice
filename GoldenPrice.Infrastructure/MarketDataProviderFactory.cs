@@ -1,5 +1,6 @@
 using GoldenPrice.Application;
 using GoldenPrice.Provider;
+using Infrastructure.Provider.brsapi.ir;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure;
